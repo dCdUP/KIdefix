@@ -3,4 +3,5 @@ project(nakio)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(nakio main.cpp)
+add_executable(nakio main.cpp
+        example/build_test.cpp)
