@@ -56,7 +56,7 @@ list(APPEND CMAKE_PREFIX_PATH "/opt/unitree_robotics/lib/cmake")
 ## Find required packages
 find_package(unitree_sdk2 REQUIRED)
 
-add_executable(unit main.cpp
+add_executable(foo ../tests/main.cpp
         image_save.cpp)
 target_link_libraries(foo unitree_sdk2)
 ```
