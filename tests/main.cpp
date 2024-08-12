@@ -6,7 +6,7 @@
 #include "vision.h"
 
 int main(int argc, char** argv) {
-    std::cout << "Hello, World!" << std::endl;
-
+    std::cout << "Initialized!" << std::endl;
+    winddown(argc,argv);
     return 0;
 }
