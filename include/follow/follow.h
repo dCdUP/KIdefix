@@ -5,6 +5,9 @@
 #ifndef FOLLOW_H
 #define FOLLOW_H
 
-int accompany(int argc, char** argv);
+int accompany(std::string networkInterface);
+
+void Handler(const void *message);
+
 
 #endif //FOLLOW_H

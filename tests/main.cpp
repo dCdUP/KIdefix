@@ -5,8 +5,9 @@
 #include "stop.h"
 #include "vision.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     std::cout << "Initialized!" << std::endl;
     winddown(argc,argv);
-    return 0;
+    //int returner = accompany("enp0s31f6");
+    return 0; // returner;
 }

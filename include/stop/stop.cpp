@@ -16,12 +16,13 @@ int winddown(int argc, char **argv, const bool iscarrying) {
     sport_client.SetTimeout(10.0f);
     sport_client.Init();
 
-    sleep(5);
-    sport_client.Heart();
-    sleep(3);
-    sport_client.StandDown();
-    sleep(5);
-    sport_client.StandUp();
+
+    //sleep(5);
+    //sport_client.Heart();
+    //sleep(3);
+    //sport_client.StandDown();
+    //sleep(5);
+    //sport_client.StandUp();
 
     return 0;
 }
