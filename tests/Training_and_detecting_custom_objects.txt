@@ -1,0 +1,1 @@
+Es wird die Webiste https://teachablemachine.withgoogle.com/ genutzt um ein Model zu erzeugen, welchen custom Bilder erkennt. Das Model kann selbst exportiert werden als Keras, dazu muss aber anscheinend auch Tensoflow installiert werden. Da Keras auf Python basiert, muss man testen ob man den Code nicht einfach nehmen kann und selbst ausführen kann.  
