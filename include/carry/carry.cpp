@@ -4,5 +4,5 @@
 #include "carry.h"
 
 int transfer(int argc, char **argv) {
-
+    return 0;
 }

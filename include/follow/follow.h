@@ -5,9 +5,10 @@
 #ifndef FOLLOW_H
 #define FOLLOW_H
 
-int accompany(std::string networkInterface);
+int accompany(const std::string networkInterface);
 
 void Handler(const void *message);
 
+float convertDisttoCm(float dist);
 
 #endif //FOLLOW_H
