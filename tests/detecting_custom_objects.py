@@ -36,6 +36,10 @@ while True:
   PredictionVariable = model.predict(TM_DATA)
   print('Prediction:')
   print(PredictionVariable)
+  print('QRCode 1:')
+  print(PredictionVariable[0][0])
+  print('QRCode 2:')
+  print(PredictionVariable[0][1])
   key = cv.waitKey(2000)
   if key == (ord('q')):
     break
