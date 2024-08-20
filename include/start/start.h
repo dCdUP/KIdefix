@@ -4,7 +4,8 @@
 
 #ifndef START_H
 #define START_H
+#include <string>
 
-int startup(int argc, char **argv);
+int startup(const std::string& Interface);
 
 #endif //START_H

@@ -4,7 +4,8 @@
 
 #ifndef CARRY_H
 #define CARRY_H
+#include <string>
 
-int transfer(int argc, char** argv);
+int transfer(std::string & Interface);
 
 #endif //CARRY_H

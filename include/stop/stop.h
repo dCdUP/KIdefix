@@ -4,7 +4,8 @@
 
 #ifndef STOP_H
 #define STOP_H
+#include <string>
 
-int winddown(int argc, char ** argv,const bool iscarrying = false );
+int winddown(std::string &Interface, bool iscarrying = false);
 
 #endif //STOP_H

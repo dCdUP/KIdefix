@@ -23,7 +23,7 @@ using namespace unitree::common;
  *
  */
 
-double distanceInfront;
+double pointsInfront;
 
 void Handler(const void *message)
 {
@@ -36,7 +36,7 @@ void Handler(const void *message)
             //<< "\n\trange left = " << range_msg->point().y()
             //<< "\n\trange right = " << range_msg->point().z()
             << std::endl << std::endl;
-    distanceInfront = range_msg->point().x();
+    pointsInfront = range_msg->point().x();
 }
 
 float convertDisttoCm(float dist) {
@@ -50,33 +50,80 @@ float convertDisttoCm(float dist) {
     else {
         const float firstIntervalinCm = 50;
         const float moreSplitDevisor = 0.01;
-        cm = firstIntervalinCm + (dist-Intervallsplit) * moreSplitDevisor;
+        cm = firstIntervalinCm + (dist-Intervallsplit) / moreSplitDevisor;
     }
 
     return cm;
 }
 
 
-int accompany(const std::string networkInterface) {
+int accompany(const std::string& networkInterface) {
+    // setup for the LIDAR interface
     ChannelFactory::Instance()->Init(0, networkInterface);
     ChannelSubscriber<geometry_msgs::msg::dds_::PointStamped_> subscriber(TOPIC_RANGE_INFO);
+    subscriber.InitChannel(Handler);
+
+    sleep(3); //this enables the robot to set up the Lidar data flow. If this is not done the robot sometimes freezes
 
     go2::SportClient sport_client;
     sport_client.SetTimeout(10.0f);
     sport_client.Init();
 
-    const float firstInterval = 0.6;
-    const float firstIntervalMultiplyer = 5/3;
-    float secondInterval;
-    const float secondIntervalMultiplyer = 10/3;
-    float distancetoMove = 0;
-
 
     while (true)
     {
+        float moveX;
+        float centimeterInfrontconstant = convertDisttoCm(pointsInfront);
+        float centimeterInfront = centimeterInfrontconstant;
+        const float optimalDistance = 80;
+        if (centimeterInfront ==  std::numeric_limits<float>::infinity()) // the LIDAR system can return inf as values which causes the
+            {
+            centimeterInfront =70.0;
+            }
+            else if (centimeterInfront == -std::numeric_limits<float>::infinity())
+            {
+                centimeterInfront = 0;
+            }
+        if(centimeterInfront < optimalDistance) {
+            const float lessDistanceSplit = 40.0;
 
-        sport_client.Move(distancetoMove,0.0,0.0);
+            if (centimeterInfront < lessDistanceSplit)
+            {
+                const float lessSplitDevisor = -0.025;
+                moveX = centimeterInfront*lessSplitDevisor;
+            }
+            else
+            {
+                const float moreSplitDevisor = -0.05;
+                moveX = -1 + (centimeterInfront-lessDistanceSplit)*moreSplitDevisor;
+            }
+        }
+        else if (centimeterInfront >= optimalDistance) {
+            float lessSplit = 133.75;
+            if (centimeterInfront < lessSplit )
+            {
+                const float lessMultiplyer = 0.0186;
+                moveX = (centimeterInfront-optimalDistance)*lessMultiplyer;
+            }
+            else
+            {
+                const float moreMultiplyer = 0.06153;
+                const float moreSplit = 53.75;
+                moveX = 1 + (centimeterInfront-optimalDistance-moreSplit)*moreMultiplyer;
+            }
+        }
+        sleep(1);
+        const float maxMoveValue = 2.0;
+        if (moveX > maxMoveValue)
+            {
+                moveX = maxMoveValue;
+            }
+        else if (moveX < -maxMoveValue)
+            {
+                moveX = -maxMoveValue;
+            }
 
+        // todo: add some smooting value that makes the movments less eradically and less stronger the higher the value of the calculated move is (maybe max - min smoothing?)
+        sport_client.Move(moveX,0.0,0.0);
     }
-}
-
+};

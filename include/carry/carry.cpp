@@ -3,6 +3,6 @@
 //
 #include "carry.h"
 
-int transfer(int argc, char **argv) {
+int transfer(std::string & Interface) {
     return 0;
 }
