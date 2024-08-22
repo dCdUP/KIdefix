@@ -5,7 +5,7 @@
 #include "carry.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
-int winddown(std::string &Interface, const bool iscarrying) {
+int winddown(const std::string &Interface, const bool iscarrying) {
 
     if (iscarrying) {
         transfer(Interface);
@@ -16,13 +16,13 @@ int winddown(std::string &Interface, const bool iscarrying) {
     sport_client.SetTimeout(10.0f);
     sport_client.Init();
 
-
-    sleep(5);
-    sport_client.Heart();
-    sleep(3);
-    sport_client.StandDown();
-    sleep(5);
-    sport_client.StandUp();
+    sport_client.Move(0.0,0.0,-2);
+    //sleep(5);
+    //sport_client.Heart();
+    //sleep(3);
+    //sport_client.StandDown();
+    //sleep(5);
+    //sport_client.StandUp();
 
     return 0;
 }

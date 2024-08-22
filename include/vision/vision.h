@@ -4,7 +4,9 @@
 
 #ifndef VISION_H
 #define VISION_H
+#include <string>
 
-int watch(int argc, char** argv);
+
+int watch(const std::string& Interface);
 
 #endif //VISION_H
