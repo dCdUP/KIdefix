@@ -1,6 +1,8 @@
 //
 // Created by nakio on 11.08.24.
 //
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
 #include "vision.h"
 #include <string>
 #include <unitree/robot/go2/video/video_client.hpp>
@@ -46,5 +48,22 @@ int watch(const std::string& Interface)
         }
 
         sleep(3);
+        Py_Initialize();
+        // todo: add error checking and add functionality that creates relative paths
+        // todo: extend the documentation for what to do to install the c/python api
+        // todo: pass the vector of the image to the python script and return a cordinate to the function back. Rest is up to domenic
+        std::string inputPath = "/home/nakio/CLionProjects/nakio/include/vision";
+        PyObject * pSysPath = PySys_GetObject("path");
+        PyList_Append(pSysPath, PyUnicode_DecodeFSDefault(inputPath.c_str()));
+
+        PyObject * pName = PyUnicode_DecodeFSDefault("vision");
+        PyObject * pModule = PyImport_Import(pName);
+        PyObject * pFunc = PyObject_GetAttrString(pModule,"vision");
+        PyObject * pArgs = PyTuple_New(1);
+        PyTuple_SetItem(pArgs, 0, PyLong_FromLong(10));
+        PyObject * pValue = PyObject_CallObject(pFunc, pArgs);
+        long result = PyLong_AsLong(pValue);
+        std::cout << result << std::endl;
+        Py_Finalize();
     }
 }

@@ -10,6 +10,7 @@ list(APPEND CMAKE_PREFIX_PATH "/opt/unitree_robotics/lib/cmake")
 find_package(unitree_sdk2 REQUIRED)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
+
 add_executable(nakio tests/main.cpp
         include/start/start.h
         include/start/start.cpp
@@ -21,7 +22,7 @@ add_executable(nakio tests/main.cpp
         include/follow/follow.h
         include/carry/carry.cpp
         include/carry/carry.h
-        tests/python_integration.cpp)
+)
 
 include_directories(${Python3_INCLUDE_DIRS})
 
