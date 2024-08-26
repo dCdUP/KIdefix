@@ -17,13 +17,9 @@ int startup(const std::string & Interface) {
 
     sport_client.Dance1();
     sleep(3);
-
     sport_client.WiggleHips();
     sleep(3);
-
     sport_client.Hello();
-
-
-
+    sleep(10);
     return 0;
 }

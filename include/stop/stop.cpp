@@ -16,13 +16,12 @@ int winddown(const std::string &Interface, const bool iscarrying) {
     sport_client.SetTimeout(10.0f);
     sport_client.Init();
 
-    sport_client.Move(0.0,0.0,-2);
-    //sleep(5);
-    //sport_client.Heart();
-    //sleep(3);
-    //sport_client.StandDown();
-    //sleep(5);
-    //sport_client.StandUp();
+    sleep(5);
+    sport_client.Heart();
+    sleep(3);
+    sport_client.StandDown();
+    sleep(5);
+    sport_client.StandUp();
 
     return 0;
 }
