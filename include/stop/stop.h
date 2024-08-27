@@ -6,6 +6,6 @@
 #define STOP_H
 #include <string>
 
-int winddown(const std::string &Interface, bool iscarrying = false);
+int stop(const std::string &Interface, bool iscarrying = false);
 
 #endif //STOP_H

@@ -4,18 +4,26 @@
 #include "carry.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
-int transfer(const std::string & Interface) {
+int carry(const std::string & Interface) {
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
 
     unitree::robot::go2::SportClient sport_client;
     sport_client.SetTimeout(10.0f);//Timeout time
     sport_client.Init();
+    sport_client.BalanceStand();
 
-    //wait for next symbol
-    while (true) {
-        sport_client.BalanceStand();
-        sleep(3);
-        //todo: place function here that detects if symbol is present
-        return 0;
+    bool RoutineBreak = false;
+    while (!RoutineBreak) {
+        //todo: place function here that detects if symbol is present, if so switch bool to true
     }
+
+    int State;
+    bool IsValidState = false;
+    while (!IsValidState) {
+        if (State == 2 || State == 3) {
+            IsValidState = true;
+        }
+
+    }
+    return State;
 }

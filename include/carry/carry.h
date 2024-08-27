@@ -6,6 +6,6 @@
 #define CARRY_H
 #include <string>
 
-int transfer(const std::string & Interface);
+int carry(const std::string & Interface);
 
 #endif //CARRY_H

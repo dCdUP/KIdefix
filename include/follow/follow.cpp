@@ -57,7 +57,7 @@ float convertDisttoCm(float dist) {
 }
 
 
-int accompany(const std::string& networkInterface) {
+int follow(const std::string& networkInterface) {
     // setup for the LIDAR interface
     ChannelFactory::Instance()->Init(0, networkInterface);
     ChannelSubscriber<geometry_msgs::msg::dds_::PointStamped_> subscriber(TOPIC_RANGE_INFO);

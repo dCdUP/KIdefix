@@ -5,7 +5,7 @@
 #include "start.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
-int startup(const std::string & Interface) {
+int start(const std::string & Interface) {
     std::cout << "startup routine" << std::endl;
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
     //argv[1] is network interface of the robot

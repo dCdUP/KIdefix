@@ -22,6 +22,8 @@ add_executable(nakio tests/main.cpp
         include/follow/follow.h
         include/carry/carry.cpp
         include/carry/carry.h
+        include/statemachine/statemachine.h
+        include/statemachine/statemachine.cpp
 )
 
 include_directories(${Python3_INCLUDE_DIRS})

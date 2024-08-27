@@ -6,6 +6,6 @@
 #define START_H
 #include <string>
 
-int startup(const std::string& Interface);
+int start(const std::string& Interface);
 
 #endif //START_H

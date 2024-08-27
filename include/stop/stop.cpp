@@ -5,10 +5,10 @@
 #include "carry.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
-int winddown(const std::string &Interface, const bool iscarrying) {
+int stop(const std::string &Interface, const bool iscarrying) {
 
     if (iscarrying) {
-        transfer(Interface);
+        carry(Interface);
     }
 
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
@@ -20,8 +20,6 @@ int winddown(const std::string &Interface, const bool iscarrying) {
     sport_client.Heart();
     sleep(3);
     sport_client.StandDown();
-    sleep(5);
-    sport_client.StandUp();
 
-    return 0;
+    return 4;
 }

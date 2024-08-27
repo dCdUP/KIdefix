@@ -5,39 +5,89 @@
 #include "stop.h"
 #include "vision.h"
 
-const enum States {
+enum States {
     Start,
     Carry,
     Follow,
+    CarryEnd,
     Stop
 };
+
+int DetectState();
 
 int main(int argc, char **argv) {
     if (argc < 2) {
         std::cout << "No networkInterface defined. Please define an interface" << std::endl;
         exit(-1);
     }
+
     const std::string Interface = argv[1];
     std::cout << "Initialized!" << std::endl;
-    int LastState = startup(Interface);
-    // todo: implement state machine
-    if (LastState != 0) {
-        while(LastState != 3) {
-            switch(LastState) {
-                case Start:
-                    std::cout << "Starting..." << std::endl;
+    int State = start(Interface);
+    int NextState;
+    // todo: move state machine to seperate function
+    // todo: unify the function naming Scheme
+    // todo: switch to memory managed assignment of variables
+    while(State != Stop) {
+        if (State == Start) {
+            NextState = DetectState();
+            while (NextState != Carry || NextState != Follow || NextState != Stop) {
+                NextState = DetectState();
+            }
+            switch (NextState) {
                 case Carry:
-                    std::cout << "Carrying..." << std::endl;
+                    State = carry(Interface);
                 case Follow:
-                    std::cout << "Following..." << std::endl;
+                    State = follow(Interface);
                 case Stop:
-                    return 0;
+                    State = stop(Interface);
                 default:
-                    return -1;
+                    break;
+            }
+        }else if (State == Carry) {
+            NextState = DetectState();
+            while (NextState != Follow || NextState != CarryEnd) {
+                NextState = DetectState();
+            }
+            switch (NextState) {
+                case Follow:
+                    State = follow(Interface);
+                case CarryEnd:
+                    //todo: create CarryEnd() function
+                default:
+                    break;
             }
         }
-    }else {
-        return -1;
+        else if (State == Follow) {
+            NextState = DetectState();
+            while (NextState != Carry || NextState != CarryEnd || NextState != Stop) {
+                NextState = DetectState();
+            }
+            switch (NextState) {
+                case Carry:
+                    State = carry(Interface);
+                case CarryEnd:
+                    //State = carryend(Interface);
+                default:
+                    break;
+            }
+        } else if (State == CarryEnd) {
+            NextState = DetectState();
+            while (NextState != Carry || NextState != Follow || NextState != Stop) {
+                NextState = DetectState();
+            }
+            switch (NextState) {
+                case Carry:
+                    State = carry(Interface);
+                case Follow:
+                    State = follow(Interface);
+                case Stop:
+                    State = stop(Interface);
+                default:
+                    break;
+            }
     }
 
+    }
 }
+

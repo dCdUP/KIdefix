@@ -7,6 +7,6 @@
 #include <string>
 
 
-int watch(const std::string& Interface);
+int vision(const std::string& Interface);
 
 #endif //VISION_H
