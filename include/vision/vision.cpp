@@ -50,7 +50,6 @@ int vision(const std::string& Interface)
         sleep(3);
         Py_Initialize();
         // todo: add error checking and add functionality that creates relative paths
-        // todo: extend the documentation for what to do to install the c/python api
         // todo: pass the vector of the image to the python script and return a cordinate to the function back. Rest is up to domenic
         std::string inputPath = "/home/nakio/CLionProjects/nakio/include/vision";
         PyObject * pSysPath = PySys_GetObject("path");

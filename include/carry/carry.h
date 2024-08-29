@@ -6,6 +6,7 @@
 #define CARRY_H
 #include <string>
 
-int carry(const std::string & Interface);
+int carry(const std::string& Interface,bool& isCarrying);
+int stopcarry(const std::string& Interface,bool& isCarrying);
 
 #endif //CARRY_H

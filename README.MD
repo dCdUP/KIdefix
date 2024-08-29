@@ -1,3 +1,5 @@
+from reportlab.lib.colors import saddlebrown
+
 # Naki'O
 
 ## How to get the SDK running? 
@@ -5,7 +7,6 @@
 ### Prerequisites
 
 *  Ubuntu 20.04.6 LTS
-    * !!! Don't choose minimal installation
 
 ```bash
 # Update your system 
@@ -68,6 +69,33 @@ for the SDK to work within your project.**
 
 Copy the content of the build_test.cpp file from example into your IDE and compile. If there are no errors the SDK is working correctly.
 
-# How to work run applications on the dog?
+# How to run applications on the dog?
 
 Read the following website beginning at the start of the "Configuring network environment" section for that information: [https://support.unitree.com/home/en/developer/Quick_start](https://support.unitree.com/home/en/developer/Quick_start)
+
+# Other
+
+## Python/C(++) API
+To access the Python/C(++) Api you need to install the dev version of python
+
+```bash
+# Update your system 
+sudo apt update && sudo apt upgrade
+
+# Install the dev version of python
+sudo apt-get install python3-dev
+```
+and you need to append the following commands to the CMakeLists.txt file 
+
+```cmake
+# This includes the python interpreter into the application
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+
+# This takes care of the path variables for the programm
+include_directories(${Python3_INCLUDE_DIRS})
+⚠️ 
+# This includes the specified python libraries in the .py files into the application
+target_link_libraries(nakio ${Python3_LIBRARIES})
+```
+> ⚠️ This has only been tested with the python installation of the machine
+> pyenv or venv has not been tested. ⚠️

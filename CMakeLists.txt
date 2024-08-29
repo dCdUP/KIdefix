@@ -22,8 +22,8 @@ add_executable(nakio tests/main.cpp
         include/follow/follow.h
         include/carry/carry.cpp
         include/carry/carry.h
-        include/statemachine/statemachine.h
         include/statemachine/statemachine.cpp
+        include/statemachine/statemachine.h
 )
 
 include_directories(${Python3_INCLUDE_DIRS})
@@ -33,5 +33,6 @@ target_include_directories(nakio PUBLIC ./include/follow)
 target_include_directories(nakio PUBLIC ./include/start)
 target_include_directories(nakio PUBLIC ./include/stop)
 target_include_directories(nakio PUBLIC ./include/vision)
+target_include_directories(nakio PUBLIC ./include/statemachine)
 target_link_libraries(nakio unitree_sdk2)
 target_link_libraries(nakio ${Python3_LIBRARIES})

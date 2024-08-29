@@ -5,7 +5,7 @@
 #ifndef FOLLOW_H
 #define FOLLOW_H
 
-int follow(const std::string& networkInterface);
+int follow(const std::string& Interface);
 
 void Handler(const void *message);
 

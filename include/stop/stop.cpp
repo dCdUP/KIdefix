@@ -5,10 +5,10 @@
 #include "carry.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
-int stop(const std::string &Interface, const bool iscarrying) {
+int stop(const std::string &Interface, bool iscarrying) {
 
     if (iscarrying) {
-        carry(Interface);
+        carry(Interface,iscarrying);
     }
 
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);

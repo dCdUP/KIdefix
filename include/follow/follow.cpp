@@ -57,13 +57,13 @@ float convertDisttoCm(float dist) {
 }
 
 
-int follow(const std::string& networkInterface) {
+int follow(const std::string& Interface) {
     // setup for the LIDAR interface
-    ChannelFactory::Instance()->Init(0, networkInterface);
+    ChannelFactory::Instance()->Init(0, Interface);
     ChannelSubscriber<geometry_msgs::msg::dds_::PointStamped_> subscriber(TOPIC_RANGE_INFO);
     subscriber.InitChannel(Handler);
 
-    sleep(3); //this enables the robot to set up the Lidar data flow. If this is not done the robot sometimes freezes
+    sleep(3); //this allows the robot to set up the Lidar data flow. If this is not done the robot sometimes freezes.
 
     go2::SportClient sport_client;
     sport_client.SetTimeout(10.0f);
@@ -122,7 +122,7 @@ int follow(const std::string& networkInterface) {
             {
                 moveX = -maxMoveValue;
             }
-
+        // todo: break function if a new symbol is discovered
         // todo: add some smooting value that makes the movments less eradically and less stronger the higher the value of the calculated move is (maybe max - min smoothing?)
         sport_client.Move(moveX,0.0,0.0);
     }
