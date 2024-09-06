@@ -1,0 +1,1 @@
+Ein Modell wurde trainiert mit Bildern um 2 Ausgaben zu generieren, einmal "Follow" und "Stop". Ein Bild kann ausgelesen werden und das Model gibt aus was es erkannt hat. 
