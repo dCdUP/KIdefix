@@ -1,23 +1,23 @@
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 import numpy as np
-
+    
+# Disable scientific notation for clarity
+np.set_printoptions(suppress=True)
+    
+# Load the model
+model = load_model("keras_Model.h5", compile=False)
+    
+# Load the labels
+class_names = open("labels.txt", "r").readlines()
+    
+# Create the array of the right shape to feed into the keras model
+# The 'length' or number of images you can put into the array is
+# determined by the first position in the shape tuple, in this case 1
+data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+    
 def detect_photo():
-    
-    # Disable scientific notation for clarity
-    np.set_printoptions(suppress=True)
-    
-    # Load the model
-    model = load_model("keras_Model.h5", compile=False)
-    
-    # Load the labels
-    class_names = open("labels.txt", "r").readlines()
-    
-    # Create the array of the right shape to feed into the keras model
-    # The 'length' or number of images you can put into the array is
-    # determined by the first position in the shape tuple, in this case 1
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-    
+
     # Replace this with the path to your image
     image = Image.open("<IMAGE_PATH>").convert("RGB")
     
@@ -43,7 +43,7 @@ def detect_photo():
     # Print prediction and confidence score
     #print("Class:", class_name[2:], end="")
     #print("Confidence Score:", confidence_score)
-    if confidence_score > 80:
+    if confidence_score > 0.80:
         return class_name 
     else:
         detect_photo()
