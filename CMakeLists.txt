@@ -36,3 +36,8 @@ target_include_directories(nakio PUBLIC ./include/vision)
 target_include_directories(nakio PUBLIC ./include/statemachine)
 target_link_libraries(nakio unitree_sdk2)
 target_link_libraries(nakio ${Python3_LIBRARIES})
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/picture)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/module)
+set(SOURCE_FILE ${CMAKE_SOURCE_DIR}/include/vision/vision.py)
+file(COPY ${SOURCE_FILE} DESTINATION ${CMAKE_BINARY_DIR}/module)

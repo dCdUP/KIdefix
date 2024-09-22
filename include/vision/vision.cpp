@@ -11,9 +11,9 @@
 #include <ctime>
 
 
-int vision(const std::string& Interface)
+int detectState(const std::string& Interface)
 {
-
+    int currentState;
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
     unitree::robot::go2::VideoClient video_client;
     video_client.SetTimeout(1.0f);
@@ -22,47 +22,82 @@ int vision(const std::string& Interface)
     std::vector<uint8_t> image_sample;
     int ret;
 
-    while (true)
+    while (currentState != 5)
     {
         ret = video_client.GetImageSample(image_sample);
-
+        std::string imageName = "/picture/capture.png";
         if (ret == 0) {
-            time_t rawtime;
-            tm *timeinfo;
-            char buffer[80];
-
-            time(&rawtime);
-            timeinfo = localtime(&rawtime);
-
-            strftime(buffer, sizeof(buffer), "%Y%m%d%H%M%S.jpg", timeinfo);
-            std::string image_name(buffer);
-
-            std::ofstream image_file(image_name, std::ios::binary);
+            std::ofstream image_file(imageName, std::ios::binary);
             if (image_file.is_open()) {
                 image_file.write(reinterpret_cast<const char*>(image_sample.data()), image_sample.size());
                 image_file.close();
-                std::cout << "Image saved successfully as " << image_name << std::endl;
-            } else {
-                std::cerr << "Error: Failed to save image." << std::endl;
+                std::cout << "Image saved successfully as " << imageName << std::endl;
             }
         }
 
-        sleep(3);
         Py_Initialize();
-        // todo: add error checking and add functionality that creates relative paths
-        // todo: pass the vector of the image to the python script and return a cordinate to the function back. Rest is up to domenic
         std::string inputPath = "/home/nakio/CLionProjects/nakio/include/vision";
         PyObject * pSysPath = PySys_GetObject("path");
         PyList_Append(pSysPath, PyUnicode_DecodeFSDefault(inputPath.c_str()));
 
         PyObject * pName = PyUnicode_DecodeFSDefault("vision");
         PyObject * pModule = PyImport_Import(pName);
-        PyObject * pFunc = PyObject_GetAttrString(pModule,"vision");
+        PyObject * pFunc = PyObject_GetAttrString(pModule,"detectState");
         PyObject * pArgs = PyTuple_New(1);
-        PyTuple_SetItem(pArgs, 0, PyLong_FromLong(10));
+        PyTuple_SetItem(pArgs, 0, PyUnicode_FromString(imageName.c_str()));
         PyObject * pValue = PyObject_CallObject(pFunc, pArgs);
-        long result = PyLong_AsLong(pValue);
-        std::cout << result << std::endl;
+        currentState = static_cast<int>(PyLong_AsLong(pValue));
+        if (currentState > 5) {
+            currentState = 5;
+        }
         Py_Finalize();
     }
+    return currentState;
+}
+
+int moveAngle(const std::string &Interface) {
+    int State;
+    double xCoordinate;
+    unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
+    unitree::robot::go2::VideoClient video_client;
+    video_client.SetTimeout(1.0f);
+    video_client.Init();
+
+    std::vector<uint8_t> image_sample;
+    int ret;
+
+    while (State != 2)
+    {
+        ret = video_client.GetImageSample(image_sample);
+        std::string imageName = "/picture/capture.png";
+        if (ret == 0) {
+            std::ofstream image_file(imageName, std::ios::binary);
+            if (image_file.is_open()) {
+                image_file.write(reinterpret_cast<const char*>(image_sample.data()), image_sample.size());
+                image_file.close();
+                std::cout << "Image saved successfully as " << imageName << std::endl;
+            }
+        }
+
+        Py_Initialize();
+        std::string inputPath = "./module";
+        PyObject * pSysPath = PySys_GetObject("path");
+        PyList_Append(pSysPath, PyUnicode_DecodeFSDefault(inputPath.c_str()));
+
+        PyObject * pName = PyUnicode_DecodeFSDefault("vision");
+        PyObject * pModule = PyImport_Import(pName);
+        PyObject * pFunc = PyObject_GetAttrString(pModule,"moveAngle");
+        PyObject * pArgs = PyTuple_New(1);
+        PyTuple_SetItem(pArgs, 0, PyUnicode_FromString(imageName.c_str()));
+        PyObject * pValue = PyObject_CallObject(pFunc, pArgs);
+        PyObject *StatePtr = PyTuple_GetItem(pValue, 0);
+        PyObject *xCoordinatePtr = PyTuple_GetItem(pValue, 1);
+
+        State = static_cast<int>(PyLong_AsLong(StatePtr));
+        if (State == 2) {
+            xCoordinate = PyFloat_AsDouble(xCoordinatePtr);
+            break;
+        }
+    }
+    return xCoordinate;
 }

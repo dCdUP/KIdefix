@@ -6,6 +6,9 @@
 #include <unitree/robot/go2/sport/sport_client.hpp>
 #include <unitree/idl/ros2/PointStamped_.hpp>
 #include "follow.h"
+
+#include <cmath>
+
 #include "stop.h"
 #include "carry.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
@@ -56,6 +59,11 @@ float convertDisttoCm(float dist) {
     return cm;
 }
 
+// converts the moveX Value to be always between -1 and 1 using a sigmoid function
+float convertMovetoInterval(float moveX) {
+    return 2*(1/(1+pow(2.71828,-moveX))) -1;
+}
+
 
 int follow(const std::string& Interface) {
     // setup for the LIDAR interface
@@ -76,7 +84,7 @@ int follow(const std::string& Interface) {
         float centimeterInfrontconstant = convertDisttoCm(pointsInfront);
         float centimeterInfront = centimeterInfrontconstant;
         const float optimalDistance = 80;
-        if (centimeterInfront ==  std::numeric_limits<float>::infinity()) // the LIDAR system can return inf as values which causes the
+        if (centimeterInfront ==  std::numeric_limits<float>::infinity()) // the LIDAR system can return inf as values which causes the follwing calculation to stop working
             {
             centimeterInfront =70.0;
             }
@@ -124,6 +132,7 @@ int follow(const std::string& Interface) {
             }
         // todo: break function if a new symbol is discovered
         // todo: add some smooting value that makes the movments less eradically and less stronger the higher the value of the calculated move is (maybe max - min smoothing?)
+        moveX = convertMovetoInterval(moveX);
         sport_client.Move(moveX,0.0,0.0);
     }
-};
+}

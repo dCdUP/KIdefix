@@ -11,4 +11,6 @@ void Handler(const void *message);
 
 float convertDisttoCm(float dist);
 
+float convertMovetoInterval(float moveX);
+
 #endif //FOLLOW_H

@@ -7,6 +7,10 @@
 #include <string>
 
 
-int vision(const std::string& Interface);
+int detectState(const std::string& Interface);
+
+int moveAngle(const std::string& Interface);
+
+
 
 #endif //VISION_H

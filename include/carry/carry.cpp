@@ -5,7 +5,7 @@
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
 int carry(const std::string& Interface,bool& isCarrying) {
-    int State = 1;
+    constexpr int State = 1;
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
 
     unitree::robot::go2::SportClient sport_client;
@@ -17,7 +17,7 @@ int carry(const std::string& Interface,bool& isCarrying) {
 }
 
 int stopcarry(const std::string &Interface, bool& isCarrying) {
-    int State = 3;
+    constexpr int State = 3;
     unitree::robot::ChannelFactory::Instance()->Init(0, Interface);
 
     unitree::robot::go2::SportClient sport_client;

@@ -1,4 +1,7 @@
-import cv2 as cv
+from ultralytics import YOLO
 
-def vision(bImg):
-    return  bImg
+def detectState(path):
+    return State
+
+def movePosition(path):
+    return (State,Xcoordinate)

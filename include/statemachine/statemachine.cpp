@@ -19,22 +19,16 @@ enum States {
     Stop
 };
 
-int DetectState() {
-    int state;
-    std::cin >> state;
-    return state;
-}
 
 int statemachine(const std::string& Interface) {
-    int State = DetectState();//start(Interface);
+    int State = detectState(Interface);
     int NextState;
     bool isCarrying;
-    // todo: switch to memory managed assignment of variables
     while(State != Stop) {
         if (State == Start) {
-            NextState = DetectState();
+            NextState = detectState(Interface);
             while (NextState != Carry && NextState != Follow && NextState != Stop) {
-                NextState = DetectState();
+                NextState = detectState(Interface);
             }
             switch (NextState) {
                 case Carry:
@@ -50,9 +44,9 @@ int statemachine(const std::string& Interface) {
                     break;
             }
         }else if (State == Carry) {
-            NextState = DetectState();
+            NextState = detectState(Interface);
             while (NextState != Follow && NextState != CarryEnd) {
-                NextState = DetectState();
+                NextState = detectState(Interface);
             }
             switch (NextState) {
                 case Follow:
@@ -68,9 +62,9 @@ int statemachine(const std::string& Interface) {
             }
         }
         else if (State == Follow) {
-            NextState = DetectState();
+            NextState = detectState(Interface);
             while (NextState != Carry && NextState != CarryEnd && NextState != Stop) {
-                NextState = DetectState();
+                NextState = detectState(Interface);
             }
             switch (NextState) {
                 case Carry:
@@ -84,9 +78,9 @@ int statemachine(const std::string& Interface) {
                     break;
             }
         } else if (State == CarryEnd) {
-            NextState = DetectState();
+            NextState = detectState(Interface);
             while (NextState != Carry && NextState != Follow && NextState != Stop) {
-                NextState = DetectState();
+                NextState = detectState(Interface);
             }
             switch (NextState) {
                 case Carry:
