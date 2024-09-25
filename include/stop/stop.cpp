@@ -21,5 +21,5 @@ int stop(const std::string &Interface, bool iscarrying) {
     sleep(3);
     sport_client.StandDown();
 
-    return 4;
+    return 40;
 }

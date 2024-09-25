@@ -1,3 +1,5 @@
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
 #include <iostream>
 #include "statemachine.h"
 
@@ -9,6 +11,8 @@ int main(int argc, char **argv) {
 
     const std::string Interface = argv[1];
     std::cout << "Initialized!" << std::endl;
-    //statemachine(Interface);
+    Py_Initialize();
+    statemachine(Interface);
+    Py_Finalize();
     return 0;
 }

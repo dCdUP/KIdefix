@@ -12,11 +12,11 @@
 #include "vision.h"
 
 enum States {
-    Start,
-    Carry,
-    Follow,
-    CarryEnd,
-    Stop
+    Start = 24,
+    Carry = 22,
+    Follow = 34,
+    CarryEnd = 0,
+    Stop = 40,
 };
 
 
@@ -26,6 +26,7 @@ int statemachine(const std::string& Interface) {
     bool isCarrying;
     while(State != Stop) {
         if (State == Start) {
+            start(Interface);
             NextState = detectState(Interface);
             while (NextState != Carry && NextState != Follow && NextState != Stop) {
                 NextState = detectState(Interface);
@@ -97,5 +98,6 @@ int statemachine(const std::string& Interface) {
             }
     }
     }
+    stop(Interface);
     return 0;
 }

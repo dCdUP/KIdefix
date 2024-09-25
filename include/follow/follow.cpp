@@ -13,6 +13,8 @@
 #include "carry.h"
 #include <unitree/robot/go2/sport/sport_client.hpp>
 
+#include "vision.h"
+
 #define TOPIC_RANGE_INFO "rt/utlidar/range_info"
 
 using namespace unitree::robot;
@@ -131,7 +133,11 @@ int follow(const std::string& Interface) {
                 moveX = -maxMoveValue;
             }
         // todo: break function if a new symbol is discovered
-        // todo: add some smooting value that makes the movments less eradically and less stronger the higher the value of the calculated move is (maybe max - min smoothing?)
+        const int followEnd = 38;
+        if (detectState(Interface) == followEnd) {
+            return 34;
+        }
+
         moveX = convertMovetoInterval(moveX);
         sport_client.Move(moveX,0.0,0.0);
     }
