@@ -165,7 +165,7 @@ from ultralytics import YOLO
 
 model = YOLO("traffic signs.pt") #lädt das Modell
 
-source = r"C:\Users\domen\OneDrive\Hochschule Studium\SS 24\Advanced Data- and Information Management Technologies\Bilderkennung\Trainingsbilder\nstopg.jpg" #Pfad des Bildes
+source = r"Pfad des Bildes\bild.jpg" 
 
 results = model(source) #gibt das Bild ins Modell zur Analyse
 
@@ -193,3 +193,6 @@ if boxes.conf.item() >0.3 and boxes.cls == 40. : #wenn der Konfidenzscore über 
 else:
     print("Nichts gefunden") 
 ```
+
+# Our usecase
+We use a model trained on traffic signs in order to execute the different tasks, because there are a lot of already annotated datasets and pre-trained models. You can find the model in the folder /model on git. 
