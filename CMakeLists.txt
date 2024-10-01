@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(nakio)
+project(KIdefix)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -11,7 +11,7 @@ find_package(unitree_sdk2 REQUIRED)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
 
-add_executable(nakio tests/main.cpp
+add_executable(KIdefix tests/main.cpp
         include/start/start.h
         include/start/start.cpp
         include/stop/stop.cpp
@@ -28,14 +28,14 @@ add_executable(nakio tests/main.cpp
 
 include_directories(${Python3_INCLUDE_DIRS})
 
-target_include_directories(nakio PUBLIC ./include/carry)
-target_include_directories(nakio PUBLIC ./include/follow)
-target_include_directories(nakio PUBLIC ./include/start)
-target_include_directories(nakio PUBLIC ./include/stop)
-target_include_directories(nakio PUBLIC ./include/vision)
-target_include_directories(nakio PUBLIC ./include/statemachine)
-target_link_libraries(nakio unitree_sdk2)
-target_link_libraries(nakio ${Python3_LIBRARIES})
+target_include_directories(KIdefix PUBLIC ./include/carry)
+target_include_directories(KIdefix PUBLIC ./include/follow)
+target_include_directories(KIdefix PUBLIC ./include/start)
+target_include_directories(KIdefix PUBLIC ./include/stop)
+target_include_directories(KIdefix PUBLIC ./include/vision)
+target_include_directories(KIdefix PUBLIC ./include/statemachine)
+target_link_libraries(KIdefix unitree_sdk2)
+target_link_libraries(KIdefix ${Python3_LIBRARIES})
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/picture)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/module)

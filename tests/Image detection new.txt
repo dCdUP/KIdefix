@@ -1,2 +1,0 @@
-Ein Modell wurde trainiert mit Bildern um 2 Ausgaben zu generieren, einmal "Follow" und "Stop". Ein Bild kann ausgelesen werden und das Model gibt aus was es erkannt hat. 
-https://stackoverflow.com/questions/78187204/trying-to-export-teachable-machine-model-but-returning-error es muss die Tensorflow Version 2.21.1 installiert werden
