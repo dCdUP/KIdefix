@@ -1,5 +1,5 @@
 //
-// Created by nakio on 11.08.24.
+// Created by KIdefix on 11.08.24.
 //
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>

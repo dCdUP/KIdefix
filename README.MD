@@ -20,7 +20,8 @@ sudo apt update && sudo apt upgrade
 # install you ide of choice
 sudo snap install clion --classic
 # install git, build-essentials, g++ and cmake
-sudo apt install git && sudo apt install build-essentials && sudo apt install g++ && sudo apt install cmake
+sudo apt install git && sudo apt install build-essentials && sudo apt install g++
+sudo apt install cmake && sudo apt remove cmake && sudo snap install cmake --classic
 ```
 
 #### Installing the SDK
@@ -63,16 +64,6 @@ target_link_libraries(foo unitree_sdk2)
 **The list(), find_package(), and target_link_libraries() functions must be in place 
 for the SDK to work within your project.**
 
-### Testing if it worked
-
-Copy the content of the build_test.cpp file from example into your IDE and compile. If there are no errors the SDK is working correctly.
-
-# How to run applications on the dog?
-
-Read the following website beginning at the start of the "Configuring network environment" section for that information: [https://support.unitree.com/home/en/developer/Quick_start](https://support.unitree.com/home/en/developer/Quick_start)
-
-# Other
-
 ## Python/C(++) API
 To access the Python/C(++) Api you need to install the dev version of python
 
@@ -81,7 +72,7 @@ To access the Python/C(++) Api you need to install the dev version of python
 sudo apt update && sudo apt upgrade
 
 # Install the dev version of python
-sudo apt-get install python3-dev
+sudo apt-get install python3-dev && sudo pip install ultralytics 
 ```
 and you need to append the following commands to the CMakeLists.txt file 
 
@@ -93,10 +84,36 @@ find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 include_directories(${Python3_INCLUDE_DIRS})
 ⚠️ 
 # This includes the specified python libraries in the .py files into the application
-target_link_libraries(nakio ${Python3_LIBRARIES})
+target_link_libraries(KIdefix ${Python3_LIBRARIES})
 ```
 > ⚠️ This has only been tested with the python installation of the machine
 > pyenv or venv has not been tested. ⚠️
+
+# How to run applications on the dog?
+
+Read the following website beginning at the start of the "Configuring network environment" section for that information: [https://support.unitree.com/home/en/developer/Quick_start](https://support.unitree.com/home/en/developer/Quick_start).
+Keep note of the interface IP-Address you will need it to test the following program
+
+
+### Testing if it worked
+
+1. Start the roboter
+
+```bash
+cd ~
+mkdir kidefix && cd kidefix
+git clone https://gitlab.rlp.net/hst-wi/kidefix/quickstart.git
+mkdir build && cd /build
+
+cmake .
+make .
+
+./KIdefix <Interface name>
+```
+
+The roboter should now project a picture to the screen and if presented one of the pictures that are saved in the states directory.
+
+If there is an error report to nkmt3942@hochschule-trier.de and dmbc2635@hochschule-trier.de or create an issue on the project.
 
 # Image Object Detection
 
@@ -195,4 +212,4 @@ else:
 ```
 
 # Our usecase
-We use a model trained on traffic signs in order to execute the different tasks, because there are a lot of already annotated datasets and pre-trained models. You can find the model in the folder /model on git. 
+We use a model trained on traffic signs in order to execute the different tasks, because there are a lot of already annotated datasets and pre-trained models. You can find the model in the folder /include/vision/

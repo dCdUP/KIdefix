@@ -1,5 +1,5 @@
 //
-// Created by nakio on 27.08.24.
+// Created by KIdefix on 27.08.24.
 //
 #include "statemachine.h"
 

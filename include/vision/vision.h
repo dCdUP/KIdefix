@@ -1,5 +1,5 @@
 //
-// Created by nakio on 11.08.24.
+// Created by KIdefix on 11.08.24.
 //
 
 #ifndef VISION_H
