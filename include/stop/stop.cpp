@@ -17,7 +17,8 @@ int stop(const std::string &Interface, bool iscarrying) {
     sport_client.Init();
 
     sleep(5);
-    sport_client.Heart();
+    //sport_client.Heart();
+    sport_client.Dance1();
     sleep(3);
     sport_client.StandDown();
 

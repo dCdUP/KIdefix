@@ -132,13 +132,7 @@ int follow(const std::string& Interface) {
             {
                 moveX = -maxMoveValue;
             }
-        // todo: break function if a new symbol is discovered
-        const int followEnd = 38;
-        if (detectState(Interface) == followEnd) {
-            return 34;
-        }
 
-        moveX = convertMovetoInterval(moveX);
-        sport_client.Move(moveX,0.0,0.0);
+        sport_client.Move(convertMovetoInterval(moveX),0.0,0.0);
     }
 }

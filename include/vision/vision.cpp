@@ -50,7 +50,7 @@ int detectState(const std::string& Interface)
         PyObject* pValue = PyObject_CallObject(pFunc, pArgs);
 
         currentState = static_cast<int>(PyLong_AsLong(pValue));
-        sleep(3);
+        sleep(2);
 
     }
     return currentState;
